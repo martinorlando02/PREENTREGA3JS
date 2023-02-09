@@ -60,6 +60,7 @@ const eliminarProductoEnCarrito = (productoId) => {
     actualizarTotalesCarrito(carrito);
 };
 
+
 const actualizarCarrito = (carrito) => {
     const contenedor = document.getElementById('carrito-contenedor');
 
@@ -78,6 +79,13 @@ const actualizarCarrito = (carrito) => {
     });
 };
 
+/* vaciarCarrito.addEventListener('click', () => {
+    carrito.length = []
+    obtenerCarritoStorage()
+    guardarCarritoStorage()
+}) */
+
+
 const guardarCarritoStorage = (carrito) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 };
@@ -86,3 +94,5 @@ const obtenerCarritoStorage = () => {
     const carritoStorage = JSON.parse(localStorage.getItem('carrito'));
     return carritoStorage;
 };
+
+
