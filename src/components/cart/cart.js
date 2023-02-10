@@ -1,4 +1,4 @@
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 const productoContenedor = document.getElementById('producto-contenedor');
 
@@ -16,11 +16,13 @@ const validarProductoEnCarrito = (productoId) => {
         carrito.push(producto);
         pintarProductoCarrito(producto);
         actualizarTotalesCarrito(carrito);
+        guardarCarritoStorage(carrito);
     } else {
         productoRepetido.cantidad++
         const cantidadProducto = document.getElementById(`cantidad${productoRepetido.id}`);
         cantidadProducto.innerText = `Cantidad: ${productoRepetido.cantidad}`;
         actualizarTotalesCarrito(carrito);
+        guardarCarritoStorage(carrito);
     }
 };
 
@@ -58,6 +60,7 @@ const eliminarProductoEnCarrito = (productoId) => {
     carrito.splice(productoIndex, 1);
     actualizarCarrito(carrito);
     actualizarTotalesCarrito(carrito);
+    guardarCarritoStorage(carrito);
 };
 
 
@@ -80,9 +83,11 @@ const actualizarCarrito = (carrito) => {
 };
 
 const vaciarCarrito1 = () => {
-    carrito = [];
-    guardarCarritoStorage();
-}
+    carrito.splice(0, carrito.length);
+    actualizarCarrito(carrito);
+    actualizarTotalesCarrito(carrito);
+    guardarCarritoStorage(carrito);
+};
 
 
 
@@ -90,9 +95,34 @@ const guardarCarritoStorage = (carrito) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 };
 
-const obtenerCarritoStorage = () => {
-    const carritoStorage = JSON.parse(localStorage.getItem('carrito'));
-    return carritoStorage;
-};
+
+
+const modalContenedor = document.querySelector('.modal-contenedor');
+const abrirCarrito = document.getElementById('cesta-carrito');
+const cerrarCarrito = document.getElementById('btn-cerrar-carrito');
+const vaciarCarrito = document.getElementById('btn-vaciar-carrito');
+const modalCarrito = document.querySelector('.modal-carrito');
+
+
+abrirCarrito.addEventListener('click', () => {
+    modalContenedor.classList.toggle('modal-active')
+});
+
+cerrarCarrito.addEventListener('click', () => {
+    modalContenedor.classList.toggle('modal-active')
+});
+
+modalContenedor.addEventListener('click', () => {
+    cerrarCarrito.click()
+});
+
+modalCarrito.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (e.target.classList.contains('boton-eliminar')) {
+        eliminarProductoEnCarrito(e.target.value);
+    }
+});
+
+vaciarCarrito.addEventListener('click', vaciarCarrito1);
 
 
