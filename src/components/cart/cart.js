@@ -79,11 +79,11 @@ const actualizarCarrito = (carrito) => {
     });
 };
 
-/* vaciarCarrito.addEventListener('click', () => {
-    carrito.length = []
-    obtenerCarritoStorage()
-    guardarCarritoStorage()
-}) */
+const vaciarCarrito1 = () => {
+    carrito = [];
+    guardarCarritoStorage();
+}
+
 
 
 const guardarCarritoStorage = (carrito) => {

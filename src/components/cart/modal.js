@@ -1,7 +1,7 @@
 const modalContenedor = document.querySelector('.modal-contenedor');
 const abrirCarrito = document.getElementById('cesta-carrito');
 const cerrarCarrito = document.getElementById('btn-cerrar-carrito');
-/* const vaciarCarrito = document.getElementById('btn-vaciar-carrito'); */
+const vaciarCarrito = document.getElementById('btn-vaciar-carrito');
 const modalCarrito = document.querySelector('.modal-carrito');
 
 
@@ -22,4 +22,6 @@ modalCarrito.addEventListener('click', (e) => {
     if (e.target.classList.contains('boton-eliminar')) {
         eliminarProductoEnCarrito(e.target.value);
     }
-})
+});
+
+vaciarCarrito.addEventListener('click', vaciarCarrito1);
