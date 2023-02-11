@@ -83,7 +83,21 @@ const actualizarCarrito = (carrito) => {
 };
 
 const vaciarCarrito1 = () => {
-    carrito.splice(0, carrito.length);
+    
+    if(carrito.length == 0){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Su carrito ya se encuentra vacío!',
+        })
+        }else{
+            carrito.splice(0, carrito.length);
+            Swal.fire(
+                'ENHORABUENA!',
+                'El carrito se vacio con exito!',
+                'success'
+            )
+        }
     actualizarCarrito(carrito);
     actualizarTotalesCarrito(carrito);
     guardarCarritoStorage(carrito);
@@ -106,6 +120,7 @@ const modalCarrito = document.querySelector('.modal-carrito');
 
 abrirCarrito.addEventListener('click', () => {
     modalContenedor.classList.toggle('modal-active')
+    actualizarCarrito(carrito);
 });
 
 cerrarCarrito.addEventListener('click', () => {
@@ -124,5 +139,7 @@ modalCarrito.addEventListener('click', (e) => {
 });
 
 vaciarCarrito.addEventListener('click', vaciarCarrito1);
+
+actualizarTotalesCarrito(carrito);
 
 
